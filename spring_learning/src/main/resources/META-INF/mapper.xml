@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- SQL문법에 대한 파일(mapper) -->
+<mapper namespace="spring_learning.macbook_mapper">
+<!--  DML만 사용할 수 있음
+<select></select><insert></insert><update></update><delete></delete>
+${} : 필드명, 테이블명, 파라미터
+#{} : 값을 적용시킬때 사용하는 파라미터값
+-->
+<insert id="macbook_insert">
+insert into macbook_class (midx,class_part,class_cate,class_name,class_day,class_price,class_sales,class_info,class_teacher,class_object,class_use,today)
+values ('0',#{class_part},#{class_cate},#{class_name},#{class_day},#{class_price},#{class_sales},#{class_info},#{class_teacher},#{class_object},#{class_use},now())
+</insert> 
+<!-- 
+resultType : config.xml에서 셋팅된 
+alias를 이용하여 Model DTO에 이관 
+-->
+<!-- 과정 데이터 수정 -->
+<update id="macbook_update">
+update macbook_class set class_part=#{class_part}, class_cate=#{class_cate}, class_name=#{class_name},
+class_day=#{class_day}, class_price=#{class_price}, class_sales=#{class_sales},
+class_info=#{class_info}, class_teacher=#{class_teacher}, class_object=#{class_object},
+class_use=#{class_use} where midx = #{midx}
+</update>
+
+<!-- 과정 하나의 데이터 -->
+<select id="macbook_one" resultType="macbookdto" parameterType="String">
+select * from macbook_class where midx = #{midx}
+</select>
+
+<!-- 과정 전체의 리스트 데이터 -->
+<select id="macbook_select" resultType="macbookdto">
+select * from macbook_class order by midx desc
+</select>
+
+<delete id="macbook_delete">
+delete from macbook_class
+</delete>
+
+
+ 
+
+ 
+</mapper>

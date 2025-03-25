@@ -1,0 +1,164 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>spring_learning</groupId>
+  <artifactId>spring_learning</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <name>spring_learning</name>
+  <description>spring_learning</description>
+  <!-- 배포 파일에 맞춰서 해당 압축파일을 생성하는 라이브러리 -->
+  <build>
+  <plugins>
+  	<plugin>
+  		<groupId>org.apache.maven.plugins</groupId>
+  		<artifactId>maven-war-plugin</artifactId>
+  		<version>3.3.2</version>	
+  	</plugin>
+  </plugins>
+  </build>
+  <!-- 프로젝트에 필요한 각종 라이브러리 설치 목록-->
+  <dependencies>
+  
+  <!-- 
+  Spring, Spring-boot Database관련 id 의존성 주입하기 위해서
+   -->
+  <dependency>
+    <groupId>javax.inject</groupId>
+    <artifactId>javax.inject</artifactId>
+    <version>1</version>
+  </dependency>
+  
+  
+  <!-- slf4j (log 출력 라이브러리) : JDK 및 라이브러리 호출 대한 정보--> 
+  <dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-api</artifactId>
+    <version>2.0.17</version>
+  </dependency> 
+ <!-- java 또는 Controller, Model을 구현시 결과값의 처리 정보를 출력 기록 -->
+  <dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-log4j12</artifactId>
+    <version>2.0.17</version>
+    <scope>runtime</scope>
+  </dependency>  
+  <!-- Server가 오류 및 소켓통신, 포트통신 일 경우 기록 -->
+  <dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>jcl-over-slf4j</artifactId>
+    <version>2.0.17</version>
+    <scope>runtime</scope>
+  </dependency> 
+  <!-- console에 출력  -->
+  <dependency>
+    <groupId>log4j</groupId>
+    <artifactId>log4j</artifactId>
+    <version>1.2.17</version>
+    <scope>runtime</scope>
+  </dependency>
+   
+   
+   
+  <!-- mybatis -->
+  <dependency>
+    <groupId>org.mybatis</groupId>
+    <artifactId>mybatis</artifactId>
+    <version>3.5.6</version>
+  </dependency>
+  <!-- mybatis spring --> 
+  <dependency>
+    <groupId>org.mybatis</groupId>
+    <artifactId>mybatis-spring</artifactId>
+    <version>2.0.6</version>
+  </dependency> 
+     
+  <!-- 파일업로드 라이브러리 -->
+  <dependency>
+    <groupId>commons-fileupload</groupId>
+    <artifactId>commons-fileupload</artifactId>
+    <version>1.5</version>
+  </dependency>
+  
+  <!-- lombok : DTO,VO (setter,getter) --> 
+  <dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <version>1.18.36</version>
+    <scope>provided</scope>
+  </dependency>
+ 
+  <!-- JSP + JSTL 언어를 사용하기 위한 라이브러리 -->
+  <dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>jstl</artifactId>
+    <version>1.2</version>
+  </dependency>
+  
+  <!-- spring+mysql (Model, Controller, View) : mysql 서버 접속 환경설정 라이브러리 -->
+  <dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-jdbc</artifactId>
+    <version>5.3.39</version>
+  </dependency>
+  
+  <!-- Spring MVC -->
+  <dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-webmvc</artifactId>
+    <version>5.3.39</version>
+  </dependency>
+  
+  <!-- was 버젼셋팅 -->
+  <dependency>
+    <groupId>org.apache.tomcat</groupId>
+    <artifactId>tomcat-catalina</artifactId>
+    <version>8.5.61</version>
+  </dependency>
+  
+  <!--  DBCP : (Database Connection) - Spring, Spring-boot -->
+  <dependency>
+    <groupId>commons-dbcp</groupId>
+    <artifactId>commons-dbcp</artifactId>
+    <version>1.4</version>
+  </dependency>
+ 
+  <!-- java web으로 사용할 수 있는 Servlet 라이브러리 -->
+  <dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>javax.servlet-api</artifactId>
+    <version>3.1.0</version>
+    <scope>provided</scope>
+  </dependency>
+  
+  <!-- mysql 라이브러리 -->
+  <dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>8.0.30</version>
+  </dependency>
+  <!-- 
+  <dependency>
+    <groupId>com.oracle.database.jdbc</groupId>
+    <artifactId>ojdbc8</artifactId>
+    <version>23.7.0.25.01</version>
+  </dependency>
+  <dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>5.1.49</version>
+ </dependency>
+ -->
+  </dependencies>
+  
+  
+  
+  
+  
+  <!-- jdk 셋팅 버젼 -->
+ 
+  <properties>
+  <maven.compiler.source>11</maven.compiler.source>
+  <maven.compiler.target>11</maven.compiler.target>
+  </properties>
+  
+</project>

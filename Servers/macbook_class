@@ -1,0 +1,22 @@
+select * from macbook_class where midx = '3';
+
+
+create table macbook_class(
+midx int unsigned auto_increment,    /* 자동 증가값 */
+class_part varchar(100) not null,  /* 과정구분 */
+class_cate varchar(30) not null,  /* 과정카테고리 */
+class_name varchar(200) not null,  /* 과정명 */
+class_day int not null default '1',  /* 학습일수 */
+class_price int not null,   /* 정가금액 */
+class_sales int not null,   /* 수강료(할인금액) */
+class_info text null,     /* 과정소개 */
+class_teacher varchar(100) null,  /* 강사명 */
+class_object text null,   /* 학습목표 */
+class_use enum('Y','N') not null default 'N', /* 과정 오픈 유/무 */
+today timestamp not null default current_timestamp,  /* 생성일자 */
+primary key(midx)
+)
+
+
+
+
