@@ -34,8 +34,9 @@ select * from macbook_class where midx = #{midx}
 select * from macbook_class order by midx desc
 </select>
 
-<delete id="macbook_delete">
-delete from macbook_class
+<!-- 자료형이 int로 처리하는 방식 -->
+<delete id="macbook_delete" parameterType="int">
+delete from macbook_class where midx=#{midx}
 </delete>
 
 

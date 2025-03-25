@@ -1,5 +1,21 @@
 select * from macbook_class where midx = '3';
 
+create table macbook_member(
+midx int unsigned auto_increment,
+mid varchar(100) not null,
+mname varchar(100) not null,
+memail varchar(100) not null,
+primary key(midx),
+unique (mid)
+);
+
+insert into macbook_member value ('0','hong','홍길동','hong@nate.com');
+insert into macbook_member value ('0','gildong','홍길동','gil@naver.com');
+insert into macbook_member value ('0','kim','김유신','kim@nate.com');
+insert into macbook_member value ('0','han','한성복','han@gmail.com');
+
+
+
 
 create table macbook_class(
 midx int unsigned auto_increment,    /* 자동 증가값 */

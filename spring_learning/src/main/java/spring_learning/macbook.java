@@ -1,22 +1,12 @@
 package spring_learning;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionFactoryBean;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,11 +17,6 @@ public class macbook {
 	
 	//@Autowird, @Inject : 의존성 주입 XML=>Java, Java=>XML
 	
-	//ibatis로 연결
-	/*
-	@Inject
-	SqlSessionFactory sqlfact;
-	*/
 	//@Resource : new 클래스명 호출과 동일하게 작동을 하며, 
 	//@Repository의 이름을 가져오는 역활
 	@Resource(name="macbook_DAO")
@@ -40,6 +25,30 @@ public class macbook {
 	@Resource(name="macbook_DTO")
 	public macbook_DTO macbook_DTO;
 	
+	PrintWriter pw = null;
+	
+	/*
+	  Model 과 HttpServletResponse 은 함께 사용하지 못합니다.
+	  두개의 interface 역활이 같으므로 하나만 사용이 가능합니다. 
+	 */
+	//과정을 삭제처리하는 메소드
+	@PostMapping("/macbook_delete.do")
+	public String macbook_delete(@RequestParam("midx") String midx,
+			HttpServletResponse res) throws Exception {
+		res.setContentType("text/html; charset=utf-8");
+		this.pw = res.getWriter();
+		int result = this.dao.macbook_delete(Integer.parseInt(midx));
+		if(result > 0) {
+			this.pw.print("<script>"
+					+ "alert('올바르게 해당 과정을 삭제 하였습니다.');"
+					+ "location.href='./macbook_list.do';"
+					+ "</script>");
+		}
+		this.pw.close();
+		return null;
+	}
+	
+	//과정 내용 수정을 처리하는 메소드
 	@PostMapping("/macbook_modifyok.do")
 	public String macbook_modifyok(macbook_DTO dto, Model m) {
 		//insert, update, delete 무조건 결과를 int로 받음
@@ -90,7 +99,7 @@ public class macbook {
 	@PostMapping("/macbook_ok.do")
 	public String macbook_ok(macbook_DTO dto, Model m) throws Exception {
 		try {
-			int result = this.dao.macbook_in(dto);
+			int result = this.dao.macbook_insert(dto);
 			String msg = "";
 			if(result > 0) {
 			   	msg = "alert('과정 개설이 올바르게 생성 되었습니다.');"

@@ -41,13 +41,23 @@ destroy-method="close" : 자동으로 문법이 완료 되었을 경우 Database
 <bean id="sqlfact" class="org.mybatis.spring.SqlSessionFactoryBean">
 <property name="dataSource" ref="dbinfo"/>
 <property name="configLocation" value="classpath:/META-INF/config.xml"/>
+<!-- 1개의 mapper만 사용할 경우 -->
+<!-- 
 <property name="mapperLocations" value="classpath:/META-INF/mapper.xml"/>
+ -->
+ 
+<!-- 1개 이상의 mapper를 사용할 경우 --> 
+<property name="mapperLocations">
+	<array>
+		<value>classpath:/META-INF/mapper.xml</value>
+		<value>classpath:/META-INF/member_mapper.xml</value>
+	</array>
+</property>
 </bean>
 
 <!-- Mybatis Template(interface) -->
 <bean id="template" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="close">
 	<constructor-arg name="sqlSessionFactory" ref="sqlfact"/>
 </bean>
-
 
 </beans>
