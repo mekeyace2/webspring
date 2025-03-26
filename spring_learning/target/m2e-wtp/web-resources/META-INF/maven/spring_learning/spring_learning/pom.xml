@@ -18,6 +18,39 @@
   </build>
   <!-- 프로젝트에 필요한 각종 라이브러리 설치 목록-->
   <dependencies>
+  <!-- Mail-API -->
+  <dependency>
+    <groupId>javax.mail</groupId>
+    <artifactId>javax.mail-api</artifactId>
+    <version>1.4.7</version>
+  </dependency>
+  <dependency>
+    <groupId>javax.mail</groupId>
+    <artifactId>mail</artifactId>
+    <version>1.4.7</version>
+  </dependency>
+  <dependency>
+    <groupId>javax.activation</groupId>
+    <artifactId>activation</artifactId>
+    <version>1.1.1</version>
+  </dependency>
+  
+  
+  
+  <!-- JSON IN JAVA (API, .JSON파일) -->
+  <dependency>
+    <groupId>org.json</groupId>
+    <artifactId>json</artifactId>
+    <version>20250107</version>
+   </dependency>
+  <!-- JSON Simple (API, .JSON파일) --> 
+   <dependency>
+    <groupId>com.googlecode.json-simple</groupId>
+    <artifactId>json-simple</artifactId>
+    <version>1.1.1</version>
+    </dependency>
+   
+  
   
   <!-- 
   Spring, Spring-boot Database관련 id 의존성 주입하기 위해서

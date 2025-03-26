@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>개인정보 확인 (API를 이용하여 데이터 출력)</title>
+</head>
+<body>
+아이디 : <div id="mid"></div><br>
+이름 : <div id="mname"></div><br>
+이메일 : <div id="memail"></div><br>
+지역 : <div id="marea"></div><br>
+연락처 : <div id="mphone"></div><br>
+</body>
+<script>
+var http,data;
+http = new XMLHttpRequest();
+http.onreadystatechange = function(){
+	if(http.readyState==4 && http.status==200){
+		//JSON.parse : API에서 받은 문자열을 배열화 시키는 함수
+		data = JSON.parse(this.response);
+		view();
+	}
+}
+http.open("GET","http://172.30.1.22:8080/spring_learning/api_data3.do",false);
+http.send();
+
+function view(){
+	document.getElementById("mid").innerText = data["myinfo"][0]["id"];
+	document.getElementById("mname").innerText = data["myinfo"][0]["name"];
+	document.getElementById("memail").innerText = data["myinfo"][0]["email"];
+	document.getElementById("marea").innerText = data["myinfo"][0]["area"];
+	document.getElementById("mphone").innerText = data["myinfo"][0]["phone"];
+}
+
+</script>
+
+
+</html>

@@ -33,7 +33,7 @@
   base-package란 Java Package를 말하며, 
   해당 패키지에 있는 모든 @을 사용할 수 있도록 오픈함 
   -->
-  <context:component-scan base-package="spring_learning"/>
+  <context:component-scan base-package="spring_learning,etc_model"/>
   
   
   		
