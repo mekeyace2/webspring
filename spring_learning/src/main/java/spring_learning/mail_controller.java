@@ -49,7 +49,7 @@ public class mail_controller {
 			//보내는 사람 메일 주소 + 보낸이
  			msg.setFrom(new InternetAddress(memail,mname,"utf-8"));
 			//받는 사람
-			msg.addRecipient(Message.RecipientType.TO, new InternetAddress("받는 담당자 이메일 주소"));
+			msg.addRecipient(Message.RecipientType.TO, new InternetAddress("받는 담당자 이메일주소"));
 			msg.setSubject(subject);	//메일 제목
 			msg.setContent(mtext, "text/html;charset=utf-8");	//메일 내용
 			Transport.send(msg);	//메일 발송에 대한 메소드

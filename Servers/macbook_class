@@ -1,5 +1,19 @@
 select * from macbook_class where midx = '3';
 
+create table macbook_cms(
+cidx int unsigned auto_increment,
+csubject varchar(100) not null,
+cuser char(50) not null,
+cate set('cms1','cms2','cms3','cms4','cms5') not null,
+cdate timestamp not null default current_timestamp,
+primary key(cidx)
+);
+select * from macbook_cms;
+insert into macbook_cms values ('0','테스트2','홍길동2','cms2,cms5',now());
+
+
+
+
 create table macbook_member(
 midx int unsigned auto_increment,
 mid varchar(100) not null,
