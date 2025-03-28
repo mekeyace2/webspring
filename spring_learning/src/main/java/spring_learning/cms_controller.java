@@ -2,6 +2,7 @@ package spring_learning;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -28,8 +29,12 @@ public class cms_controller {
 		 처리할 때 사용할 수 있습니다. 단, 여러개의 컬럼으로 처리시에는 첫번째 컬럼 외에 모두
 		 loss 처리 합니다.  (예시 : count, avg, sum, max, min)
 		 */
-		String result = this.st.selectOne("macbook_user.cms_views");
-		System.out.println(result);
+		//Map<String, String> result = this.st.selectOne("macbook_user.cms_views");
+		//List<String> result = this.st.selectList("macbook_user.cms_views");
+		List<Map<String, String>> result = this.st.selectList("macbook_user.cms_views");
+		m.addAttribute("csubject",result.get(0).get("csubject"));
+		m.addAttribute("cuser",result.get(0).get("cuser"));
+		m.addAttribute("cate",result.get(0).get("cate"));
 		return null;
 	}
 	

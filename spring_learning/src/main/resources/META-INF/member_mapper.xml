@@ -2,10 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="macbook_user">
+<!-- 배너 전체 리스트 -->
+<select id="banner_all" resultType="banner_DTO">
+select * from macbook_banner order by bidx desc
+</select>
+<!-- 
+mysql + mariadb : like concat('%',#{search},'%')
+oracle : like '%' || #{search} || '%'
+mssql : like '%' + #{search} + '%'
+ -->
+<select id="banner_search" resultType="banner_DTO" parameterType="String">
+select * from macbook_banner where bname like concat('%',#{search},'%')
+ order by bidx desc
+</select>
 
+
+<!-- 배너 등록 테이블 -->
+<insert id="banner_new">
+insert into macbook_banner (bidx,bname,file_ori,file_new,file_url,bdate) 
+values ('0',#{bname},#{file_ori},#{file_new},#{file_url}, now())
+</insert>
 
 <!-- Table이 다른 쿼리문 (cidx 가상으로 Front-end에서 받았다는 예시) -->
-<select id="cms_views" resultType="String">
+<select id="cms_views" resultType="Map"> <!-- DTO 없음 -->
 select * from macbook_cms where cidx='2'
 </select>
 
@@ -13,7 +32,6 @@ select * from macbook_cms where cidx='2'
 insert into macbook_cms (cidx,csubject,cuser,cate,cdate) 
 values ('0',#{csubject},#{cuser},#{cate},now())
 </insert>
-
 
 <!-- 전체 데이터 출력 -->
 <select id="user_all" resultType="memberdto" parameterType="String">

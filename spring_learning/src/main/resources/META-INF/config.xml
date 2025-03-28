@@ -18,6 +18,9 @@
 <!-- alias : 별명 명칭, type : 패키지와 class명을 사용해야 합니다. -->
 	<typeAlias alias="macbookdto" type="spring_learning.macbook_DTO"/>
 	<typeAlias alias="memberdto" type="spring_learning.macbook_member_DTO"/>
-	
+	<typeAlias alias="banner_DTO" type="spring_learning.banner_DTO"/>
 </typeAliases>
 </configuration>
+
+
+
