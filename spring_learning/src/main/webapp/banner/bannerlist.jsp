@@ -19,6 +19,12 @@ function spage(){
 		return;
 	}
 }
+//전체선택 관련 핸들링 함수
+function check_all(ck){
+	console.log(ck);
+}
+
+
 </script>
 <form id="sform" method="get" action="./bannerlist" onsubmit="return spage()">
 <p>
@@ -27,10 +33,11 @@ function spage(){
 <input type="button" value="전체목록" onclick="location.href='./bannerlist';">
 </p>
 </form>
+<p>전체 등록된 배너갯수 : ${total}</p>
 <table border="1" cellpadding="0" cellspacing="0">
 <thead>
 <tr>
-	<th><input type="checkbox"></th>
+	<th><input type="checkbox" id="allck" onclick="check_all(this.checked)"></th>
 	<th width="80">번호</th>
 	<th width="300">배너명</th>
 	<th width="100">이미지</th>
@@ -47,11 +54,11 @@ function spage(){
 </tbody>
 </cr:if>
 <tbody>
-<cr:forEach var="bn" items="${all}">
-
+<cr:set var="ino" value="${total-userpage}" /> <!-- 게시물 일련번호 셋팅 -->
+<cr:forEach var="bn" items="${all}" varStatus="idx">
 <tr height=50>
 	<td><input type="checkbox"></td>
-	<td></td>
+	<td align="center">${ino-idx.index}</td>
 	<td>${bn.bname}</td>
 	<td>
 	<cr:if test="${bn.file_url == null}">
@@ -71,9 +78,35 @@ function spage(){
 </cr:forEach>
 </tbody>
 </table>
+<br><br>
+<!-- form 전송으로 선택된 값을 삭제하는 프로세서 -->
+<form id="dform">
+<input type="hidden">
+</form>
+<input type="button" value="선택삭제">
+<!-- form 전송으로 선택된 값을 삭제하는 프로세서 -->
 
-
-
+<br><br>
+<!-- pageing -->
+<table border="1" cellpadding="0" cellspacing="0">
+<tbody>
+<tr height="30">
+<!-- 
+Controller에서 데이터의 전체 갯수를 받음 해당 값을 한페이지당 5개씩 출력 하는 구조
+산수식을 입력하여 총 페이징 번호를 생성하여 출력함
+ -->
+<cr:set var="pageidx" value="${total / 5 + (1-((total / 5) % 1)) % 1}"/>
+<cr:forEach var="no" begin="1" end="${pageidx}" step="1">
+<td width="30" align="center" onclick="pg('${no}')">${no}</td>
+</cr:forEach>
+</tr>
+</tbody>
+</table>
+<script>
+function pg(no){
+	location.href='./bannerlist?pageno='+no;	
+}
+</script>
 
 
 </body>

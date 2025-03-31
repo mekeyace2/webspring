@@ -7,7 +7,9 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -26,6 +28,7 @@ public class banner_controller {
 	String result = null;
 	int callback = 0;
 	ModelAndView mv = null;
+	
 	
 	@Resource(name="banner_DTO")
 	banner_DTO dto;	//new
@@ -64,14 +67,30 @@ public class banner_controller {
 	//search 검색에 관련사항은 필수조건은 아니며, 또한 null 처리가 되었을 경우 defaultValue 값이 공백처리
 	@GetMapping("/banner/bannerlist")
 	public String bannerlist(Model m,
-			@RequestParam(defaultValue = "", required = false)String search) {
+			@RequestParam(defaultValue = "", required = false)String search,
+			@RequestParam(defaultValue = "1", required = false)Integer pageno
+			) {
+	    //데이터 총 갯수 확인 코드
+		int total = this.dao.banner_total();
+		
+		int userpage = 0;	//사용자가 클릭한 페이지 번호에 맞는 순차번호 계산값
+		//끝
+		if(pageno == 1) {
+			userpage = 0;
+		}else {	//1외 페이지 번호를 클릭시
+			userpage = (pageno - 1) * 5;
+		}
+		//해당 일련번호를 계산하여 jsp에 전달
+		m.addAttribute("userpage",userpage);
+		
 		List<banner_DTO> all = null;
 		if(search.intern() == "") {	//검색어가 없을 경우
-			all = this.dao.all_banner();
+			all = this.dao.all_banner(pageno);	//인자값 : 사용자가 페이지 번호를 클릭한 값
 		}
 		else {	//검색어가 있을 경우
 			all = this.dao.search_banner(search);
 		}
+		m.addAttribute("total",total);		//데이터 전체 갯수
 		m.addAttribute("search",search);	//검색어를 jsp 전달
 		m.addAttribute("all",all);
 		return null;
