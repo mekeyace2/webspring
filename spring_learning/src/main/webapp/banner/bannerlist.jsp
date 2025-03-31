@@ -20,8 +20,34 @@ function spage(){
 	}
 }
 //전체선택 관련 핸들링 함수
-function check_all(ck){
-	console.log(ck);
+//getElements : name,class  getElement : id
+function check_all(ck){  //ck : true, false
+	var ea = document.getElementsByName("ckbox");
+	
+	//조건문 없이 이벤트를 발생시킴
+	var w = 0;
+	while(w < ea.length){
+		ea[w].checked = ck;
+		w++;
+	}
+	
+	
+	/*
+	if(ck==true){	//전체선택 했을 경우
+		var w = 0;
+		while(w < ea.length){
+			ea[w].checked = true;
+			w++;
+		}
+	}else{	//전체선택을 해제 할 경우
+		var w = 0;
+		while(w < ea.length){
+			ea[w].checked = false;
+			w++;
+		}
+	}
+	*/
+	
 }
 
 
@@ -55,9 +81,12 @@ function check_all(ck){
 </cr:if>
 <tbody>
 <cr:set var="ino" value="${total-userpage}" /> <!-- 게시물 일련번호 셋팅 -->
+
+<!-- jsp, jstl 반복문 안에는 절대 id로 같은 이름을 사용하시면 안됩니다.-->
 <cr:forEach var="bn" items="${all}" varStatus="idx">
 <tr height=50>
-	<td><input type="checkbox"></td>
+	<!-- bidx : DB에서 사용된 auto_increment 값 -->
+	<td><input type="checkbox" name="ckbox" value="${bn.bidx}"></td>
 	<td align="center">${ino-idx.index}</td>
 	<td>${bn.bname}</td>
 	<td>
@@ -76,14 +105,15 @@ function check_all(ck){
 	<td align="center">${fn:substring(bn.bdate,0,10)}</td>
 </tr>
 </cr:forEach>
+
 </tbody>
 </table>
 <br><br>
 <!-- form 전송으로 선택된 값을 삭제하는 프로세서 -->
-<form id="dform">
-<input type="hidden">
+<form id="dform" method="post" action="./bannerdel">
+<input type="hidden" name="ckdel" value="">
 </form>
-<input type="button" value="선택삭제">
+<input type="button" value="선택삭제" onclick="check_del()">
 <!-- form 전송으로 선택된 값을 삭제하는 프로세서 -->
 
 <br><br>
@@ -103,6 +133,28 @@ Controller에서 데이터의 전체 갯수를 받음 해당 값을 한페이지
 </tbody>
 </table>
 <script>
+//선택삭제 버튼 클릭시 리스트에서 체크된 값을 확인 후 배열화 하여 hidden으로 값을 적용하여
+//Back-end로 문자열로 전달
+function check_del(){
+	var ar = new Array();	//script 배열 
+	
+	var ob = document.getElementsByName("ckbox");
+	var w = 0;
+	while(w < ob.length){
+		if(ob[w].checked == true){
+			ar.push(ob[w].value);
+		}
+		w++;
+	}
+	dform.ckdel.value = ar;
+	
+	if(confirm("해당 데이터를 삭제시 복구 되지 않습니다.")){
+		dform.submit();	
+	}
+	
+}
+
+
 function pg(no){
 	location.href='./bannerlist?pageno='+no;	
 }

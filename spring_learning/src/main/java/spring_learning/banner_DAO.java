@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -46,6 +47,12 @@ public class banner_DAO {
 	//신규 배너 등록 메소드
 	public int new_banner(banner_DTO dto) {
 		int result = this.st.insert("macbook_user.banner_new",dto);
+		return result;
+	}
+	
+	//배너 삭제 메소드
+	public int banner_del(String no) {
+		int result = this.st.delete("macbook_user.banner_del",no);
 		return result;
 	}
 	
