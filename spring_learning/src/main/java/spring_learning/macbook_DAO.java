@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.annotations.Select;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 //DAO : 데이터를 Access를 하는 역활
@@ -14,7 +15,7 @@ public class macbook_DAO implements macbook_mapper {	//@Mapper을 interface로�
 	//Mybatis => DB연결
 	@Resource(name="template")
 	public SqlSessionTemplate st;
-
+	
 	@Override
 	public int macbook_delete(int midx) {
 		int result = this.st.delete("macbook_delete",midx);

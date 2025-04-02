@@ -8,6 +8,12 @@ import java.util.Arrays;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.ResultMap;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -23,7 +29,8 @@ public class mainpage3 {
 	
 	//jstl로 로드 후 값 전달
 	@GetMapping("/jstl/jstl6.do")
-	public String jstl6(Model m) {
+	public String jstl6(Model m, char[] ctns) {
+		
 		//Model을 이용하여 jstl6.jsp로 값을 전달합니다.
 		//출력 top.jsp에서 ${} 변수를 출력함
 		String level = "일반수강생";
